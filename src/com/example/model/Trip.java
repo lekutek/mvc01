@@ -10,6 +10,9 @@ public class Trip {
 	String price;
 	String discount;
 
+	public Trip() {
+	}
+
 	public Trip(int id, String destination, String startDate, String endDate,
 			String price, String discount) {
 		super();
