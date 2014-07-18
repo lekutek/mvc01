@@ -52,7 +52,9 @@ public class CustomerController extends HttpServlet {
 		request.setCharacterEncoding("utf8");
 		response.setCharacterEncoding("utf8");
 		
-		if (request.getParameter("id") != null) {
+		//BeanUtils.populate (new Object(), request.getParameterMap());
+		
+		if ((request.getParameter("id") != null) && (request.getParameter("delete") != null)) {
 			if (request.getParameter("delete").equals("customers")) {
 				cm.removeCustomer(Integer.parseInt(request.getParameter("id")));
 			}

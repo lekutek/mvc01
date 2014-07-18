@@ -23,7 +23,8 @@
 		<c:out value="${type.surname}" />
 		<c:out value="${type.address}" />
 		<c:out value="${type.phone}" />
-		<a href="controller?id=${type.id}&delete=customer&page=customers">usun</a>
+		<a href="controller?id=${type.id}&delete=customer&page=customers">Usu&#324;</a>
+		<a href="controller?id=${type.id}&update=customer&page=ucustomers">Zmie&#324;</a>
 		<br />
 	</c:forEach>
 	<br />

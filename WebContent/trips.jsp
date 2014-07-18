@@ -25,7 +25,8 @@
 		<c:out value="${type.endDate}" />
 		<c:out value="${type.price}" />
 		<c:out value="${type.discount}" />
-		<a href="controller?id=${type.id}&delete=trip&page=trips">usu&#324;</a>
+		<a href="controller?id=${type.id}&delete=trip&page=trips">Usu&#324;</a>
+		<a href="controller?id=${type.id}&update=trip&page=utrips">Zmie&#324;</a>
 		<br />
 	</c:forEach>
 	<br/>

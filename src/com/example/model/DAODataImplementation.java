@@ -105,4 +105,26 @@ public class DAODataImplementation implements DAOData {
 			}
 		}
 	}
+
+	@Override
+	public void updateCustomer(Customer c) {
+		customers.set(c.id, c);
+		saveData(customersFile);
+	}
+
+	@Override
+	public void updateTrip(Trip t) {
+		trips.set(t.id, t);
+		saveData(tripsFile);
+	}
+
+	@Override
+	public Customer getCustomer(int id) {
+		return customers.get(id);
+	}
+
+	@Override
+	public Trip getTrip(int id) {
+		return trips.get(id);
+	}
 }
