@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.example.model.CoffeeExpert;
 import com.example.model.Customer;
-import com.example.model.DAOCustomerImplementation;
+import com.example.model.DAOData;
+import com.example.model.DAODataImplementation;
+import com.example.model.Trip;
 
 /**
  * Servlet implementation class CustomerController
@@ -23,7 +25,7 @@ import com.example.model.DAOCustomerImplementation;
 public class CustomerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private DAOCustomerImplementation cm = new DAOCustomerImplementation();
+	private DAOData cm = new DAODataImplementation();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -44,31 +46,56 @@ public class CustomerController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		List<Customer> customers = new ArrayList<Customer>();
-		if (request.getParameter("name") == null) {
-			customers = cm.getAllCustomers();
-			request.setAttribute("customers", customers);
-			RequestDispatcher view = request
-					.getRequestDispatcher("customers.jsp");
-			view.forward(request, response);
-		} else {
-			cm.addCustomer(new Customer(0, request.getParameter("name"),
-					request.getParameter("surname"), request
-							.getParameter("address"), request
-							.getParameter("phone")));
-			customers = cm.getAllCustomers();
-			request.setAttribute("customers", customers);
-			RequestDispatcher view = request
-					.getRequestDispatcher("customers.jsp");
-			view.forward(request, response);
+		List<Customer> kc = new ArrayList<Customer>();
+		List<Trip> kt = new ArrayList<Trip>();
+
+		request.setCharacterEncoding("utf8");
+		response.setCharacterEncoding("utf8");
+		
+		if (request.getParameter("id") != null) {
+			if (request.getParameter("delete").equals("customers")) {
+				cm.removeCustomer(Integer.parseInt(request.getParameter("id")));
+			}
+			if (request.getParameter("delete").equals("trips")) {
+				cm.removeTrip(Integer.parseInt(request.getParameter("id")));
+			}
 		}
 
-//		customers
-//				.add(new Customer(0, "Jan", "Kowalski", "Wroclaw", "73567456"));
-//
-//		request.setAttribute("customers", customers);
-//		RequestDispatcher view = request.getRequestDispatcher("customers.jsp");
-//		view.forward(request, response);
+		if (request.getParameter("form") != null) {
+			if (request.getParameter("form").equals("customers")) {
+				cm.addCustomer(new Customer(0, request.getParameter("name"),
+						request.getParameter("surname"), request
+								.getParameter("address"), request
+								.getParameter("phone")));
+			}
+			if (request.getParameter("form").equals("trips")) {
+				cm.addTrip(new Trip(0, request.getParameter("destination"),
+						request.getParameter("startDate"), request
+								.getParameter("endDate"), request
+								.getParameter("price"), request
+								.getParameter("discount")));
+			}
+		}
+
+		kc = cm.getAllCustomers();
+		request.setAttribute("customers", kc);
+		kt = cm.getAllTrips();
+		request.setAttribute("trips", kt);
+
+		if (request.getParameter("page") != null) {
+			if (request.getParameter("page").equals("customers")) {
+				RequestDispatcher widok = request
+						.getRequestDispatcher("customers.jsp");
+				widok.forward(request, response);
+			}
+			if (request.getParameter("page").equals("trips")) {
+				RequestDispatcher widok = request
+						.getRequestDispatcher("trips.jsp");
+				widok.forward(request, response);
+			}
+
+		}
+
 	}
 
 }
